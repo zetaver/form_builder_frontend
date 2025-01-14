@@ -1,118 +1,98 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import axios from "axios";
 
 const FormBuilder = () => {
   const [formComponents, setFormComponents] = useState([]);
-  const [formData, setFormData] = useState({});
-  const [formId, setFormId] = useState(null);
+  const [formTitle, setFormTitle] = useState("");
+  const [formDescription, setFormDescription] = useState("");
 
-  // Handle dropping components into the form
   const [, drop] = useDrop({
     accept: "COMPONENT",
-    drop: (item) => {
-      setFormComponents((prev) => [...prev, item]);
-    },
+    drop: (item) =>
+      setFormComponents((prev) => [...prev, { ...item, id: Date.now() }]),
   });
 
-  // Handle input changes
-  const handleInputChange = (e, key) => {
-    setFormData({
-      ...formData,
-      [key]: e.target.value,
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/api/submissions", {
-        formId: formId, // Save formId for submission
-        data: formData,
-      });
-      alert("Form submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
-  // Handle form template save
   const handleSaveTemplate = async () => {
+    if (!formTitle) {
+      alert("Form title is required!");
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:5000/api/forms", {
-        components: formComponents, // Save components added to the form
+      await axios.post("http://localhost:5000/api/forms", {
+        title: formTitle,
+        description: formDescription,
+        components: formComponents,
       });
-      setFormId(response.data._id); // Store the form ID for later use
       alert("Form template saved successfully!");
+      setFormTitle("");
+      setFormDescription("");
+      setFormComponents([]);
     } catch (error) {
       console.error("Error saving form template:", error);
     }
   };
 
-  // Dynamically render components
-  const renderComponent = (component) => {
-    switch (component.type) {
-      case "text":
-        return (
-          <div key={component.key}>
-            <label>{component.label}</label>
-            <input
-              type="text"
-              placeholder={component.placeholder}
-              value={formData[component.key] || ""}
-              onChange={(e) => handleInputChange(e, component.key)}
-            />
-          </div>
-        );
-      case "textarea":
-        return (
-          <div key={component.key}>
-            <label>{component.label}</label>
-            <textarea
-              placeholder={component.placeholder}
-              value={formData[component.key] || ""}
-              onChange={(e) => handleInputChange(e, component.key)}
-            />
-          </div>
-        );
-      case "number":
-        return (
-          <div key={component.key}>
-            <label>{component.label}</label>
-            <input
-              type="number"
-              placeholder={component.placeholder}
-              value={formData[component.key] || ""}
-              onChange={(e) => handleInputChange(e, component.key)}
-            />
-          </div>
-        );
-      case "email":
-        return (
-          <div key={component.key}>
-            <label>{component.label}</label>
-            <input
-              type="email"
-              placeholder={component.placeholder}
-              value={formData[component.key] || ""}
-              onChange={(e) => handleInputChange(e, component.key)}
-            />
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div ref={drop} style={{ padding: "20px", border: "1px solid #ddd" }}>
+    <div style={{ display: "flex", flexDirection: "column", padding: "20px" }}>
       <h3>Form Builder</h3>
-      <form onSubmit={handleSubmit}>
-        {formComponents.map(renderComponent)}
-        <button type="submit">Submit</button>
-      </form>
-      <button onClick={handleSaveTemplate}>Save Template</button>
+      <input
+        type="text"
+        placeholder="Form Title"
+        value={formTitle}
+        onChange={(e) => setFormTitle(e.target.value)}
+        style={{ marginBottom: "10px", padding: "8px", width: "100%" }}
+      />
+      <textarea
+        placeholder="Form Description"
+        value={formDescription}
+        onChange={(e) => setFormDescription(e.target.value)}
+        style={{
+          marginBottom: "10px",
+          padding: "8px",
+          width: "100%",
+          height: "60px",
+        }}
+      />
+      <div
+        ref={drop}
+        style={{
+          flex: 1,
+          padding: "20px",
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ddd",
+          minHeight: "200px",
+        }}
+      >
+        <h4>Form Canvas</h4>
+        {formComponents.map((component, index) => (
+          <div
+            key={index}
+            style={{
+              margin: "10px 0",
+              padding: "10px",
+              border: "1px solid #ddd",
+              backgroundColor: "#fff",
+            }}
+          >
+            <strong>{component.label}</strong>
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={handleSaveTemplate}
+        style={{
+          marginTop: "20px",
+          padding: "10px",
+          backgroundColor: "#007bff",
+          color: "#fff",
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        Save Template
+      </button>
     </div>
   );
 };

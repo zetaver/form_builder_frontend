@@ -5,7 +5,7 @@ import axios from "axios";
 const ComponentCard = ({ component }) => {
   const [{ isDragging }, drag] = useDrag({
     type: "COMPONENT",
-    item: component, // The component data being dragged
+    item: component, // Data of the dragged component
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -19,20 +19,20 @@ const ComponentCard = ({ component }) => {
         padding: "10px",
         margin: "10px 0",
         border: "1px solid #ddd",
-        backgroundColor: "#fff",
+        backgroundColor: "#f9f9f9",
         cursor: "grab",
       }}
     >
-      {component.label}
+      <strong>{component.label}</strong>
     </div>
   );
 };
 
-const Sidebar = ({ onDrop }) => {
+const Sidebar = () => {
   const [components, setComponents] = useState([]);
 
   useEffect(() => {
-    // Fetch components from backend
+    // Fetch available components from the backend
     const fetchComponents = async () => {
       try {
         const response = await axios.get(
@@ -43,14 +43,16 @@ const Sidebar = ({ onDrop }) => {
         console.error("Error fetching components:", error);
       }
     };
-
     fetchComponents();
   }, []);
 
   return (
-    <div>
+    <div
+      style={{ width: "300px", padding: "10px", borderRight: "1px solid #ddd" }}
+    >
+      <h3>Components</h3>
       {components.map((component) => (
-        <ComponentCard key={component._id} component={component} />
+        <ComponentCard key={component.key} component={component} />
       ))}
     </div>
   );

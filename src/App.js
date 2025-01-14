@@ -3,6 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Sidebar from "./components/Sidebar";
 import FormBuilder from "./pages/FormBuilder";
+import FormSubmission from "./components/Submission";
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
         </div>
         <div style={{ flex: 1, padding: "20px" }}>
           <FormBuilder />
+          <FormSubmission />
         </div>
+        <div></div>
       </div>
     </DndProvider>
   );
