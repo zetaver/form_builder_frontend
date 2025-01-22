@@ -1,20 +1,21 @@
+// src/components/FormBuilder/Canvas.js
 import React from "react";
 import { useDrop } from "react-dnd";
-import { useDragDrop } from "../../hooks/useDragDrop";
 import Field from "./Field";
 
-const Canvas = () => {
-  const { fields, handleDrop } = useDragDrop();
-
-  const [, drop] = useDrop(() => ({
-    accept: "field",
-    drop: (item) => handleDrop(item),
-  }));
+const Canvas = ({ fields, onDrop }) => {
+  const [{ isOver }, dropRef] = useDrop({
+    accept: "FIELD",
+    drop: (item) => onDrop(item),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  });
 
   return (
-    <div ref={drop} className="canvas">
-      {fields.map((field) => (
-        <Field key={field.id} type={field.type} />
+    <div ref={dropRef} className={`canvas ${isOver ? "hover" : ""}`}>
+      {fields.map((field, index) => (
+        <Field key={index} type={field.type} />
       ))}
     </div>
   );

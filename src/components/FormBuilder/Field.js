@@ -1,19 +1,18 @@
+// src/components/FormBuilder/Field.js
 import React from "react";
 
 const Field = ({ type }) => {
   switch (type) {
-    case "text":
-      return <input type="text" placeholder="Text Field" />;
-    case "textarea":
-      return <textarea placeholder="Text Area"></textarea>;
-    case "number":
-      return <input type="number" placeholder="Number" />;
-    case "password":
-      return <input type="password" placeholder="Password" />;
-    case "checkbox":
-      return <input type="checkbox" />;
-    case "button":
+    case "Text Field":
+      return <input type="text" placeholder="Enter text" />;
+    case "Button":
       return <button>Button</button>;
+    case "Checkbox":
+      return (
+        <label>
+          <input type="checkbox" /> Checkbox
+        </label>
+      );
     default:
       return null;
   }

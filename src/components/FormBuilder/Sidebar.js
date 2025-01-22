@@ -1,41 +1,38 @@
+// src/components/FormBuilder/Sidebar.js
 import React from "react";
 import { useDrag } from "react-dnd";
 
+const fields = [
+  { type: "Text Field", id: "text-field" },
+  { type: "Button", id: "button" },
+  { type: "Checkbox", id: "checkbox" },
+];
+
 const Sidebar = () => {
-  const items = [
-    { type: "text", label: "Text Field" },
-    { type: "textarea", label: "Text Area" },
-    { type: "number", label: "Number" },
-    { type: "password", label: "Password" },
-    { type: "checkbox", label: "Checkbox" },
-    { type: "button", label: "Button" },
-  ];
-
-  const FieldItem = ({ item }) => {
-    const [{ isDragging }, drag] = useDrag(() => ({
-      type: "field",
-      item,
-      collect: (monitor) => ({
-        isDragging: !!monitor.isDragging(),
-      }),
-    }));
-
-    return (
-      <div
-        ref={drag}
-        className="sidebar-item"
-        style={{ opacity: isDragging ? 0.5 : 1 }}
-      >
-        {item.label}
-      </div>
-    );
-  };
-
   return (
     <div className="sidebar">
-      {items.map((item) => (
-        <FieldItem key={item.type} item={item} />
+      {fields.map((field) => (
+        <DraggableField key={field.id} field={field} />
       ))}
+    </div>
+  );
+};
+
+const DraggableField = ({ field }) => {
+  const [{ isDragging }, dragRef] = useDrag({
+    type: "FIELD",
+    item: field,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  return (
+    <div
+      ref={dragRef}
+      className={`draggable-field ${isDragging ? "dragging" : ""}`}
+    >
+      {field.type}
     </div>
   );
 };
