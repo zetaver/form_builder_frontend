@@ -2,26 +2,18 @@ import React from "react";
 import { FaTimes, FaCog, FaCode } from "react-icons/fa"; // Import the icons
 import "../../styles/field.css"; // Import the CSS file for field styles
 
-const Field = ({ type }) => {
+const Field = ({ type, onCancel }) => {
   const handleCancel = () => {
-    console.log("Cancel action");
-  };
-
-  const handleSettings = () => {
-    console.log("Settings action");
-  };
-
-  const handleJson = () => {
-    console.log("JSON action");
+    onCancel();  // Call the onCancel passed as a prop
   };
 
   return (
-    <div className="field-container">
+    <div className="field-container" style={{ position: "relative" }}>
       {/* Action icons on the top-right corner */}
-      <div className="field-actions">
-        <FaTimes className="action-icon" onClick={handleCancel} />
-        <FaCog className="action-icon" onClick={handleSettings} />
-        <FaCode className="action-icon" onClick={handleJson} />
+      <div className="field-actions" style={{ position: "absolute", top: 0, right: 0 }}>
+        <FaTimes className="action-icon cancel_icon" onClick={handleCancel} />
+        <FaCog className="action-icon setting_icon" />
+        <FaCode className="action-icon embeded_icon" />
       </div>
 
       {/* Render the field based on the type */}

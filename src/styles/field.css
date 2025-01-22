@@ -112,10 +112,25 @@
 
 .action-icon {
   font-size: 12px;
-  color: black;
+
   cursor: pointer;
 }
 
 .action-icon:hover {
   color: #007bff;
+}
+
+.cancel_icon{
+  color: #C9302C;
+
+}
+
+.setting_icon{
+
+  color: black;
+}
+
+.embeded_icon{
+
+  color: black;
 }

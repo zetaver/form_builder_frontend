@@ -1,4 +1,3 @@
-// src/components/FormBuilder/Builder.js
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";

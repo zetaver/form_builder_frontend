@@ -4,14 +4,14 @@ import Field from "./Field";
 
 const Canvas = () => {
   const [droppedFields, setDroppedFields] = useState([]);
-  const dropRef = useRef(null); // Use useRef for the canvas reference
+  const dropRef = useRef(null);
 
   const [{ isOver }, drop] = useDrop({
     accept: "FIELD",
     drop: (item, monitor) => {
-      if (!dropRef.current) return; // Ensure dropRef is attached
+      if (!dropRef.current) return;
       const offset = monitor.getClientOffset();
-      const canvasRect = dropRef.current.getBoundingClientRect(); // Safely access getBoundingClientRect
+      const canvasRect = dropRef.current.getBoundingClientRect();
       const x = offset.x - canvasRect.left;
       const y = offset.y - canvasRect.top;
 
@@ -19,7 +19,7 @@ const Canvas = () => {
         ...item,
         x,
         y,
-        id: Date.now(), // Assign a unique ID for each field
+        id: Date.now(), 
       };
       setDroppedFields((prevFields) => [...prevFields, newField]);
     },
@@ -30,13 +30,8 @@ const Canvas = () => {
 
   drop(dropRef);
 
-  // Function to handle field drag and update position
-  const handleFieldMove = (id, x, y) => {
-    setDroppedFields((prevFields) =>
-      prevFields.map((field) =>
-        field.id === id ? { ...field, x, y } : field
-      )
-    );
+  const handleCancelField = (id) => {
+    setDroppedFields((prevFields) => prevFields.filter(field => field.id !== id));
   };
 
   return (
@@ -49,7 +44,7 @@ const Canvas = () => {
         <DraggableField
           key={field.id}
           field={field}
-          onMove={handleFieldMove}
+          onCancel={handleCancelField}
         />
       ))}
     </div>
@@ -57,7 +52,7 @@ const Canvas = () => {
 };
 
 // DraggableField component to make each field draggable within the canvas
-const DraggableField = ({ field, onMove }) => {
+const DraggableField = ({ field, onCancel }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [initialPos, setInitialPos] = useState({ x: field.x, y: field.y });
   const [currentPos, setCurrentPos] = useState({ x: field.x, y: field.y });
@@ -76,7 +71,7 @@ const DraggableField = ({ field, onMove }) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    onMove(field.id, currentPos.x, currentPos.y); // Save the updated position
+    // Optionally, save position here if needed, but for now we aren't saving it.
   };
 
   return (
@@ -90,9 +85,9 @@ const DraggableField = ({ field, onMove }) => {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // Ensure drag ends if mouse leaves the element
+      onMouseLeave={handleMouseUp}
     >
-      <Field type={field.type} />
+      <Field type={field.type} onCancel={() => onCancel(field.id)} />
     </div>
   );
 };
