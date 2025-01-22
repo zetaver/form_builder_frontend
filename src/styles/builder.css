@@ -3,22 +3,43 @@
   display: flex;
   height: 100vh;
 }
+
 .sidebar {
   width: 20%;
   background: #f4f4f4;
   padding: 10px;
   border-right: 1px solid #ccc;
 }
+
 .canvas {
   flex: 1;
-  padding: 10px;
+  position: relative;
   background: #fff;
   border: 1px solid #ccc;
-  position: relative;
+  overflow: hidden;
+  /* Prevent content from overflowing the canvas */
 }
+
 .canvas.hover {
   background: #e0e0e0;
 }
+
+/* Dropped Element Styles */
+.canvas div {
+  padding: 10px;
+  margin: 10px;
+  border: 1px dashed #007bff;
+  background: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.canvas div:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
+}
+
 .draggable-field {
   padding: 10px;
   margin-bottom: 5px;
@@ -26,6 +47,7 @@
   border: 1px solid #ccc;
   cursor: pointer;
 }
+
 .draggable-field.dragging {
   opacity: 0.5;
 }
