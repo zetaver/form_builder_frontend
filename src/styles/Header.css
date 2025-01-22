@@ -1,0 +1,174 @@
+/* General Header Styles */
+.header {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+/* Top Section: ZETA form */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-logo {
+  font-size: 28px;
+  /* Increased font size */
+  font-weight: bold;
+  color: #E62B2B;
+  /* Red logo color */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-doc {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #001F4D;
+  font-size: 16px;
+  /* Increased font size */
+  gap: 10px;
+}
+
+.header-user {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  /* Adjust this value to align dropdown properly */
+  right: 0;
+  background-color: #001F4D;
+  /* Navy blue background */
+  color: white;
+  border: 1px solid #E62B2B;
+  /* Red border */
+  border-radius: 5px;
+  list-style: none;
+  padding: 10px;
+  width: 150px;
+  /* Set dropdown width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  margin: 5px 0;
+}
+
+.dropdown-menu li a,
+.dropdown-menu li button {
+  text-decoration: none;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-menu li button:hover,
+.dropdown-menu li a:hover {
+  color: #E62B2B;
+  /* Highlight on hover */
+}
+
+/* Updated Icon Sizes */
+.icon {
+  width: 28px;
+  /* Increased icon size */
+  height: 28px;
+  /* Increased icon size */
+}
+
+/* Bottom Section: Navigation Bar */
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #001F4D;
+  /* Navy blue background */
+  padding: 15px 20px;
+  /* Increased padding */
+  position: relative;
+}
+
+.header-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  /* Increased gap between items */
+  overflow-x: auto;
+  /* Enables scrolling if there are too many items */
+  scrollbar-width: none;
+  /* Hides scrollbar in modern browsers */
+}
+
+.header-links::-webkit-scrollbar {
+  display: none;
+  /* Hides scrollbar in WebKit browsers */
+}
+
+.header-links li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Increased gap between icon and text */
+}
+
+.header-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  /* Increased font size */
+  font-weight: 500;
+  /* Slightly bolder text */
+}
+
+.header-links li img.icon {
+  width: 28px;
+  /* Increased icon size */
+  height: 28px;
+  /* Increased icon size */
+}
+
+/* Scroll Buttons */
+.scroll-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.left-scroll {
+  left: 10px;
+}
+
+.right-scroll {
+  right: 10px;
+}
+
+.scroll-button img {
+  width: 24px;
+  /* Slightly larger arrow size */
+  height: 24px;
+}

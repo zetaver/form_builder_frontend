@@ -1,0 +1,93 @@
+/* Login Page Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    /* Light gray background */
+}
+
+/* Login Box Styling */
+.login-box {
+    width: 400px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Title */
+.login-title {
+    font-size: 28px;
+    color: #001F4D;
+    /* Navy blue color */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #001F4D;
+    /* Navy blue color */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #001F4D;
+    /* Navy blue focus */
+}
+
+/* Error Message */
+.error-message {
+    color: #E62B2B;
+    /* Red for errors */
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Login Button */
+.login-button {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #001F4D;
+    /* Navy blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #003366;
+    /* Slightly darker navy */
+}
+
+.login-button:disabled {
+    background-color: #cccccc;
+    /* Disabled state */
+    cursor: not-allowed;
+}
